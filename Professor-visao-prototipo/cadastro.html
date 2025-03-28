@@ -5,56 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Reserva</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .autocomplete-list {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background: white;
+            width: 100%;
+            display: none;
+        }
+        .autocomplete-item {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .autocomplete-item:hover {
+            background: #eee;
+        }
+        .horario-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
 
     <div class="reserva-container">
         <h2>Cadastro de Reserva</h2>
+        
         <label for="curso">Curso</label>
         <select id="curso" name="curso">
-            <option value="Ciencia">Ciência da computação</option>
+            <option value="Ciencia">Ciência da Computação</option>
             <option value="Pedagogia">Pedagogia</option>
             <option value="Eletrica">Engenharia Elétrica</option>
-            <option value="Medio">Ensino médio</option>
-            <!--Pensei criar uma tabela diferente para o horario do medio, mas preferi deixar sem, já que é so para tela mesmo-->
+            <option value="Medio">Ensino Médio</option>
         </select>
         <br><br>
 
-        <label for="turma">Turma</label>
-        <select id="turma" name="turma">
-            <option value="turma_a">Primeiro semestre</option>
-            <option value="turma_a">Segundo semestre</option>
-            <option value="turma_a">Terceiro semestre</option>
-            <option value="turma_a">Quarto semestre</option>
-            <option value="turma_a">Quinto semestre</option>
-            <option value="turma_a">Sexto semestre</option>
-            <option value="turma_a">Sétimo semestre</option>
-            <option value="turma_a">Oitavo semestre</option>
-            <option value="turma_a">Nono semestre</option>
-            <option value="turma_a">Décimo semestre</option>
-            <!--Aqui caso escolhesse um a permissão de semestre visualizavel mudaria, CC não pode ver além de oito semestres-->
+        <label for="turma">Turma/Discente:</label>
+        <input type="text" id="turma" name="turma" autocomplete="off">
+        <div id="turma-list" class="autocomplete-list"></div>
+        <br><br>
+
+        <label for="sala">Sala:</label>
+        <select id="sala">
+            <option value="101">Sala D06</option>
+            <option value="102">Sala D07</option>
+            <option value="103">Sala D05</option>
         </select>
         <br><br>
 
-            <label for="sala">Sala:</label>
-            <select id="sala">
-                <option value="101">Sala 101</option>
-                <option value="102">Sala 102</option>
-                <option value="103">Sala 103</option>
-            </select>
+        <label>Horário:</label>
+        <div class="horario-container">
+            <input type="time" id="horarioInicio" name="horarioInicio" min="12:00" max="18:00" required>
+            <span>até</span>
+            <input type="time" id="horarioFim" name="horarioFim" min="12:00" max="18:00" required>
+        </div>
+        <br><br>
 
-            <label for="horario">Horário:</label>
-            <select id="horario">
-                <option value="08:00">08:00 - 09:00</option>
-                <option value="09:00">09:00 - 10:00</option>
-                <option value="10:00">10:00 - 11:00</option>
-            </select>
-
-            <button type="submit">Reservar</button>
-        </form>
+        <button id="reservarBtn">Reservar</button>
         <p id="success-message" class="success-message"></p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const turmaInput = document.getElementById("turma");
+            const turmaList = document.getElementById("turma-list");
+            const horarioInicio = document.getElementById("horarioInicio");
+            const horarioFim = document.getElementById("horarioFim");
+            const reservarBtn = document.getElementById("reservarBtn");
+            const successMessage = document.getElementById("success-message");
+
+            const turmas = [
+                "Desenvolvimento Web - Shirlei", 
+                "Tópicos Avançados em Web - Hylson", 
+                "Algoritmos - Hylson", 
+                "Ética e legislação - Uriarte", 
+                "Fundamentos da computação - Ladeira"
+            ];
+
+            turmaInput.addEventListener("input", function() {
+                const query = turmaInput.value.toLowerCase();
+                turmaList.innerHTML = "";
+                turmaList.style.display = "none"; // Oculta inicialmente
+
+                if (query) {
+                    const filtered = turmas.filter(turma => turma.toLowerCase().includes(query));
+
+                    if (filtered.length > 0) {
+                        turmaList.style.display = "block";
+                    }
+
+                    filtered.forEach(turma => {
+                        const div = document.createElement("div");
+                        div.classList.add("autocomplete-item");
+                        div.textContent = turma;
+                        div.onclick = function() {
+                            turmaInput.value = turma;
+                            turmaList.innerHTML = "";
+                            turmaList.style.display = "none"; // Oculta ao selecionar
+                        };
+                        turmaList.appendChild(div);
+                    });
+                }
+            });
+
+            horarioInicio.addEventListener("input", function() {
+                horarioFim.min = horarioInicio.value;
+            });
+
+            reservarBtn.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const turma = turmaInput.value;
+                const sala = document.getElementById("sala").value;
+                const inicio = horarioInicio.value;
+                const fim = horarioFim.value;
+
+                if (!turma || !inicio || !fim) {
+                    successMessage.textContent = "Por favor, preencha todos os campos!";
+                    return;
+                }
+
+                if (inicio >= fim) {
+                    successMessage.textContent = "O horário de saída deve ser depois do horário de entrada!";
+                    return;
+                }
+
+                successMessage.textContent = `Reserva confirmada para a Sala ${sala}, Turma/Discente ${turma}, das ${inicio} às ${fim}!`;
+            });
+        });
+    </script>
+
 </body>
 </html>
