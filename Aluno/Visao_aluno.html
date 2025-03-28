@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horários das Salas</title>
+
+    <link rel="stylesheet" href="Visao_aluno.css">
+
+</head>
+
+<body>
+
+    <header>
+        <h1>Horários e Salas</h1>
+        <nav>
+            <ul>
+                <li><a href="bla/Reserva.html">Aderir Reserva!</a></li>
+                <li><a href="bla/Horarios_Fixos.html">Horários Fixos</a></li>
+                <li><a href="bla/Utilização.html">Utilização</a></li>
+                <li><a href="bla/Historico.html">Histórico</a></li>
+                <li><a href="bla/Cadastro.html">Cadastre-se</a></li>
+                <li><a href="bla/Usuario.html">Usuários</a></li>
+                <!--Usei a referencia das imagens do professor-->
+            </ul>
+            
+        </nav>
+    </header>
+
+    <h2>Selecione o Curso e Turma</h2>
+    <form>
+        <label for="curso">Curso</label>
+        <select id="curso" name="curso">
+            <option value="Ciencia">Ciência da computação</option>
+            <option value="Pedagogia">Pedagogia</option>
+            <option value="Eletrica">Engenharia Elétrica</option>
+            <option value="Medio">Ensino médio</option>
+            <!--Pensei criar uma tabela diferente para o horario do medio, mas preferi deixar sem, já que é so para tela mesmo-->
+        </select>
+        <br><br>
+
+        <label for="turma">Turma</label>
+        <select id="turma" name="turma">
+            <option value="turma_a">Primeiro semestre</option>
+            <option value="turma_a">Segundo semestre</option>
+            <option value="turma_a">Terceiro semestre</option>
+            <option value="turma_a">Quarto semestre</option>
+            <option value="turma_a">Quinto semestre</option>
+            <option value="turma_a">Sexto semestre</option>
+            <option value="turma_a">Sétimo semestre</option>
+            <option value="turma_a">Oitavo semestre</option>
+            <option value="turma_a">Nono semestre</option>
+            <option value="turma_a">Décimo semestre</option>
+            <!--Aqui caso escolhesse um a permissão de semestre visualizavel mudaria, CC não pode ver além de oito semestres-->
+        </select>
+        <br><br>
+
+        <label for="data">Selecione a Data</label>
+        <input type="date" id="data" name="data">
+        <br><br>
+    </form>
+
+    <!-- Eu gostaria que essa tabela tbm fosse oculta como a semanal até escolher realmente se quer ver adiário ou semanal -->
+
+    <h2>Horários Diários</h2>
+    <div class="tabela-container" id="tabelaSuperior">
+        <table>
+            <thead>
+                <tr>
+                    <th>Horário</th>
+                    <th>Período</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08:00 - 09:00</td>
+                    <td>Sala D5 - manhã</td>
+                </tr>
+                <tr>
+                    <td>09:00 - 10:00</td>
+                    <td>Sala xx - manhã</td>
+                </tr>
+                <tr>
+                    <td>10:00 - 11:00</td>
+                    <td>Sala xx - manhã</td>
+                </tr>
+                <tr>
+                    <td>11:00 - 12:00</td>
+                    <td>Sala xx - manhã</td>
+                </tr>
+                <tr>
+                    <td class="Intervalo">12:00 - 13:00</td>
+                    <td>Intervalo</td>
+                </tr>
+                <tr>
+                    <td>13:00 - 14:00</td>
+                    <td>Sala xx - tarde</td>
+                </tr>
+                <tr>
+                    <td>14:00 - 15:00</td>
+                    <td>Sala xx - tarde</td>
+                </tr>
+                <tr>
+                    <td>15:00 - 16:00</td>
+                    <td>Sala xx - tarde</td>
+                </tr>
+                <tr>
+                    <td>16:00 - 17:00</td>
+                    <td>Sala xx - tarde</td>
+                </tr>
+                <tr>
+                    <td class="Intervalo">17:00 - 18:00</td>
+                    <td>Intervalo</td>
+                </tr>
+                <tr>
+                    <td>18:00 - 19:00</td>
+                    <td>Sala xx - noite</td>
+                </tr>
+                <tr>
+                    <td>19:00 - 20:00</td>
+                    <td>Sala xx - noite</td>
+                </tr>
+                <tr>
+                    <td>20:00 - 21:00</td>
+                    <td>Sala xx - noite</td>
+                </tr>
+                <tr>
+                <td>21:00 - 22:00</td>
+                <td>Sala xx - noite</td>
+                </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Horários Semanais</h2>
+
+    <button id="MostrarTabSemana" class="btn-exibir">Exibir Horários Semanais</button>
+    
+    <div class="tabela-semanal-container hidden" id="TabelaDaSemana">
+        <table class="tabela-semanal">
+            <thead>
+                <tr>
+                    <th>Horário</th>
+                    <th>Segunda-feira</th>
+                    <th>Terça-feira</th>
+                    <th>Quarta-feira</th>
+                    <th>Quinta-feira</th>
+                    <th>Sexta-feira</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08:00 - 09:00</td>
+                    <td>Sala D5 - manhã</td>
+                    <td>Sala D5 - manhã</td>
+                    <td>Sala D5 - manhã</td>
+                    <td>Sala D5 - manhã</td>
+                    <td>Sala D5 - manhã</td>
+                    <td>--</td>
+                </tr>
+                <!-- A tabela semanal é muito extensa para exemplo, vou deixar só assim, tá bom né, dá para entender -->
+            </tbody>
+        </table>
+    </div>   
+
+<footer>
+        <div>
+            <strong class="titulo">Links rápidos</strong>
+            <nav>
+                <a href="bla/Reserva.html">Aderir Reserva!</a><br>
+                <a href="bla/Horarios_Fixos.html">Horários Fixos</a><br>
+                <a href="bla/Utilização.htmla">Utilização</a><br>
+                <a href="bla/Historico.html">Histórico</a><br>
+                <a href="bla/Cadastro.html">Cadastre-se</a><br>
+                <a href="#bla/Usuario.html">Usuários</a><br>
+            </nav>
+        </div>
+
+        <div>
+            <strong class="titulo">Encontre-nos</strong>
+            <p>WhatsApp: <a href="https://wa.me/554799999999" target="_blank">(47) 99999-9999</a></p>
+            <p>Email: <a href="mailto:@gmail.com">email.bla.bla@gmail.com</a></p>
+            <p>R. Bernardino José de Oliveira n°81 - IFC Blumenau</p>
+        </div>
+</footer>
+    <div id="copyright">
+        Desenvolvido por <a href="https://www.instagram.com/yuri_gustavo_teixeira/?next=%2F" target="_blank">Projeto IFC</a>
+    </div>
+
+    <script>
+        const MostrarTabSemana = document.getElementById('MostrarTabSemana');
+        const TabelaDaSemana = document.getElementById('TabelaDaSemana');
+    
+        MostrarTabSemana.addEventListener('click', () => {
+            TabelaDaSemana.classList.toggle('hidden');
+    
+            if (TabelaDaSemana.classList.contains('hidden')) {
+                MostrarTabSemana.textContent = 'Exibir Horários Semanais';
+            } else {
+                MostrarTabSemana.textContent = 'Ocultar Horários Semanais';
+            }
+        });
+    </script>
+</body>
+</html>
